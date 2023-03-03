@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product details</title>
+</head>
+<body>
+    <div>
+        <h1>Product list</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Created_at</th>
+                    <th>updated_at</th>
+                </tr>
+            </thead>
+            {% for i in data %}
+            <tbody>
+                <tr>
+                    <td>{{i.name}}</td>
+                    <td>{{i.price}}</td>
+                    <td>{{i.created_at|date:'j/M/Y h:i:s A'}}</td>
+                    <td>{{i.updated_at|date:'j/M/Y h:i:s A'}}</td>
+                    <td><a href="update/{{i.id}}">Update</a></td>
+                    <td><a href="delete/{{i.id}}">Delete</a></td>
+
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
