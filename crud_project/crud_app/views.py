@@ -21,11 +21,10 @@ def details(request):
 
 def update(request,id):
     object=Product.objects.get(id=id)
-    print(object)
+    print(type(object))
     form = ProductForm(instance=object)
     if request.method == 'POST':
         form=ProductForm(request.POST,instance=object)
-        print(form)  
         if form.is_valid:
             form.save()
             return redirect('details')
