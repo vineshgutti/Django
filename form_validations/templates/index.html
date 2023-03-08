@@ -12,12 +12,10 @@
     {{text}}
     {% endautoescape %}
     <h1>Total records are :{% total %}</h1>
-    {% comment "commnenting the code" %}
     <form action="" method="post">
         {% csrf_token %}
         {{form.as_p}}
         <input type="submit" name="submit" id="submit">
     </form>
-    {% endcomment %}
 </body>
 </html>

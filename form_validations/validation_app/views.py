@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .forms import StudentForm
 from .models import Student
@@ -12,5 +12,9 @@ def home(request):
         if form.is_valid():
             # email = form.cleaned_data['email']
             form.save()
-            return HttpResponse("Form Validated successfully...!")
+            return redirect('details')
     return render(request, 'index.html', {'form':form,'text':text})
+
+def details(request):
+    data = Student.objects.all()
+    return render(request, 'details.html', {'data':data})
