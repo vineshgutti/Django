@@ -1,7 +1,13 @@
 from django import forms
+from django.core import validators
+from django.core.exceptions import ValidationError
 from .models import Student
+def validate_mail(value):
+    if '@gmail.com' not in value :
+        raise ValidationError("Please provide valid mail with '@gmail.com'")
 
 class StudentForm(forms.ModelForm):
+    email = forms.EmailField(validators=[validate_mail])
     class Meta:
         model = Student
         fields = '__all__'
