@@ -16,6 +16,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Price</th>
+                    <th>Discount</th>
                     <th>Created_at</th>
                     <th>updated_at</th>
                 </tr>
@@ -25,6 +26,7 @@
                 <tr>
                     <td>{{i.name}}</td>
                     <td>{{i.price}}</td>
+                    <td>{{i.discount}}</td>
                     <td>{{i.created_at|date:'j/M/Y h:i:s A'}}</td>
                     <td>{{i.updated_at|date:'j/M/Y h:i:s A'}}</td>
                     <td><a href="update/{{i.id}}">Update</a></td>

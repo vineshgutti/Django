@@ -22,6 +22,5 @@ urlpatterns = [
     path('', crate, name='create'),
     path('details', details,name='details'),
     path('update/<int:id>', update,name="update"),
-    path('delete/<int:id>', delete,name="delete"),
-
+    path('delete/<int:id>', delete,name="delete")
 ]
