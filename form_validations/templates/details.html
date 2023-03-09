@@ -7,17 +7,41 @@
     <title>Document</title>
 </head>
 <body>
+    {% if data %}
     {% for i in data %}
-    {% autoescape off %}
-    {{i.name}}
+
+    {% autoescape on %}
+    {{i.name|safe}}
     {% endautoescape %}
-    <li>{{i.rool_number}}</li>
-    <li>{{i.age}}</li>
-    <li>{{i.email}}</li>
-    <li>{{i.mobile}}</li>
-    {% comment "branch" %}
-    <li>{{i.branch}}</li>
-    {% endcomment %}
+    
+    <li style="color:{% cycle 'red' 'green' 'blue' %}";>
+    {{i.rool_number}}
+
+    {% if i.age < 21 %}
+    <h1>{% autoescape off %}
+        {{i.name}}
+        {% endautoescape %}</h1>
+    {% endif %}
+
+    {{i.email}}
+    {{i.mobile}}</li>
+
+    {% if i.branch is i.branch %} <!--'is' operator checking the object to object commparision-->
+    <h1>{{i.branch}}</h1>
+    {% endif %}
+
+
+    {% empty %}
+    <h1><i>Data is not available</i></h1>
+
     {% endfor %}
+
+    {% else %}
+    <h1>No data is available please check onces</h1>
+
+    {% endif %}
+    {% if age > 21 %}
+    <h1>those are B.tech students</h1>
+    {% endif %}
 </body>
 </html>

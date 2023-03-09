@@ -5,7 +5,7 @@ from .models import Student
 # Create your views here.
 def home(request):
     form = StudentForm()
-    text = "<i>Django</i>"
+    text = "<h1>Django</h1>"
     if request.method == "POST":
         form = StudentForm(request.POST)
         print(form.errors)
@@ -17,4 +17,6 @@ def home(request):
 
 def details(request):
     data = Student.objects.all()
+    # age=21
+    print(data[0].branch)
     return render(request, 'details.html', {'data':data})
