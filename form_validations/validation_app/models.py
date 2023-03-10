@@ -6,7 +6,7 @@ class Student(models.Model):
     rool_number = models.IntegerField()
     age = models.IntegerField()
     email= models.EmailField()
-    mobile = models.BigIntegerField() 
+    mobile = models.BigIntegerField(blank=True) 
     branch = models.CharField(max_length=30)
     description = models.TextField(null=True,blank=True)
     

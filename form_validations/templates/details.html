@@ -8,40 +8,42 @@
 </head>
 <body>
     {% if data %}
-    {% for i in data %}
+        {% for i in data %}
 
-    {% autoescape on %}
-    {{i.name|safe}}
-    {% endautoescape %}
+            <!-- {% autoescape on %} -->
+            {{i.name|safe|center:"10"}}
+            <!-- {% endautoescape %} -->
     
-    <li style="color:{% cycle 'red' 'green' 'blue' %}";>
-    {{i.rool_number}}
+        <li style="color:{% cycle 'red' 'green' 'blue' %}";>
+        {{i.rool_number}}
 
-    {% if i.age < 21 %}
-    <h1>{% autoescape off %}
-        {{i.name}}
-        {% endautoescape %}</h1>
-    {% endif %}
+        {% if i.age < 27 %}
+            <h1>{% autoescape off %}
+                {{i.name|add:'4'}}
+                {% endautoescape %}</h1>
+        {% endif %}
 
-    {{i.email}}
-    {{i.mobile}}</li>
+        {{i.email | capfirst}}
+        {{i.mobile|default:"9012345678"}}</li>
+        {{i.description | addslashes | cut:" "}}
 
-    {% if i.branch is i.branch %} <!--'is' operator checking the object to object commparision-->
-    <h1>{{i.branch}}</h1>
-    {% endif %}
+        {% if i.branch is i.branch %} <!--'is' operator checking the object to object commparision-->
+            <h1>{{i.branch|center:"15" }}</h1>
+        {% endif %}
 
 
-    {% empty %}
-    <h1><i>Data is not available</i></h1>
+        {% empty %}
+        <h1><i>Data is not available</i></h1>
 
-    {% endfor %}
+        {% endfor %}
 
     {% else %}
     <h1>No data is available please check onces</h1>
 
     {% endif %}
+
     {% if age > 21 %}
-    <h1>those are B.tech students</h1>
+        <h1>those are B.tech students</h1>
     {% endif %}
 </body>
 </html>
