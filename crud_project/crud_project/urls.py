@@ -22,5 +22,6 @@ urlpatterns = [
     path('', crate, name='create'),
     path('details', details,name='details'),
     path('update/<int:id>', update,name="update"),
+    path('patch/<int:id>', patch,name="patch"),
     path('delete/<int:id>', delete,name="delete")
 ]
