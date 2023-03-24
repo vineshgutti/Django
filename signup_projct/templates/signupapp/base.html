@@ -21,6 +21,17 @@
             <div class="jumbotron text-center m-lg-5">
                 {% block content %}
                 <h1>Welcome to Signup and Login project</h1>
+                <div class="row mt-5">
+                <div class="col-6 ml-5">
+                    <a href="signup"><input type="submit" class="btn btn-primary" value="Signup"></a>
+                </div>
+                <div class="ml-5">
+                    <a href="signin"><input type="submit" class="btn btn-primary" value="Signin"></a>
+                </div>
+                </div>
+                {% if message %}
+                <h3>{{message}}</h3>
+                {% endif %}
                 {% endblock %}
 
             </div>

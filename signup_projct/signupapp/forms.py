@@ -27,5 +27,7 @@ class RegistrationForm(forms.ModelForm):
             raise ValidationError("password length minimum '8' characters")
         if clean_data['password'] != clean_data['re_password']:
             raise ValidationError("passwords should be matched")
+        if clean_data['password'].isalnum() and clean_data['re_password'].isalnum() == True:
+            raise ValidationError("Any one special charectors '@','#','$' must be there in the given")
             
             
