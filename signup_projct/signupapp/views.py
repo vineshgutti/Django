@@ -3,7 +3,7 @@ from .models import Registration
 from .forms import RegistrationForm
 from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 # from django.contrib.auth.models import AbstractUser
 
 # Create your views here.
@@ -30,13 +30,14 @@ def signup(request):
         form=RegistrationForm()
     return render(request,'signupapp/signup.html',{'form':form})
 
-def signin(request):
+def Login(request):
     if request.method == 'POST':
         # import pdb;pdb.set_trace()
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username,password=password)
         print(user)
+        print(type(user))
         if user is not None:
             login(request,user)
             request.session['log']=True
@@ -44,5 +45,9 @@ def signin(request):
     else:
         form = AuthenticationForm()
         return render(request,'signupapp/login.html',{'form':form})
+
+def Logout(request):
+    logout(request)
+    return redirect('/')
 
      

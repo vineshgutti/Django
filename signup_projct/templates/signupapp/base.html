@@ -17,17 +17,20 @@
             <div class="col-6"><button type="button" class="btn btn-success"><a href="#">Login</a></button></div>
         </div>
     </div> -->
-    <div class="container-fluid">
+    <div class="container">
             <div class="jumbotron text-center m-lg-5">
                 {% block content %}
-                <h1>Welcome to Signup and Login project</h1>
-                <div class="row mt-5">
-                <div class="col-6 ml-5">
-                    <a href="signup"><input type="submit" class="btn btn-primary" value="Signup"></a>
-                </div>
-                <div class="ml-5">
-                    <a href="signin"><input type="submit" class="btn btn-primary" value="Signin"></a>
-                </div>
+                <h1>Welcome to Signup and Login & Logout project</h1>
+                <div class="row mt-md-5">
+                        <div class="col">
+                            <a href="signup"><input type="submit" class="btn btn-primary" value="Signup"></a>
+                        </div>
+                        <div class="col">
+                            <a href="login"><input type="submit" class="btn btn-success" value="login"></a>
+                        </div>
+                         <div class="col">
+                            <a href="logout"><input type="submit" class="btn btn-danger" value="logout"></a>
+                        </div>
                 </div>
                 {% if message %}
                 <h3>{{message}}</h3>
