@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid justify-content-center">
+        <h1>#2] From a given timespan, give me all the data for "Sensor X" over time.</h1><a href="{{request.path}}?export=True" class="btn btn-lg btn-success">Export to CSV</a>
+    <table class="table table-bordered border-dark ">
+        <thead>
+          <tr>
+            <th scope="col">sensorName</th>
+            <th scope="col">dataPoints</th>
+            <th scope="col">dateTime</th>
+            <th scope="col">tripId</th>
+    
+          </tr>
+        </thead>
+        {% for d in data %}
+        <tbody>
+          <tr>
+            <th>{{d.sensorName}}</th>
+            <td>{{d.dataPoints}}</td>
+            <td>{{d.dateTime}}</td>
+            <td>{{d.tripId}}</td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
+</body>
+</html>

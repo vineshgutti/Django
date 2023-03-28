@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid justify-content-center">
+        <h1>#5] From a given boat, give the average of “Sensor X” for each day between these dates.  </h1><a href="{{request.path}}?export=True" class="btn btn-lg btn-success">Export to CSV</a>
+    <table class="table table-bordered border-dark ">
+        <thead>
+          <tr>
+            <th scope="col">from_time</th>
+            <th scope="col">index0_avg</th>
+            <th scope="col">index1_avg</th>
+            <th scope="col">index2_avg</th>
+    
+          </tr>
+        </thead>
+        {% for d in data %}
+        <tbody>
+          <tr>
+            <td>{{d.from_time}}</td>
+            <td>{{d.index0_avg}}</td>
+            <td>{{d.index1_avg}}</td>
+            <td>{{d.index2_avg}}</td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
+</body>
+</html>

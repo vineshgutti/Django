@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid justify-content-center">
+        <h1>#3] From a given trip, give the sum of "Sensor X" throughout the entire trip. </h1><a href="{{request.path}}?export=True" class="btn btn-lg btn-success">Export to CSV</a>
+    <table class="table table-bordered border-dark ">
+        <thead>
+          <tr>
+            <th scope="col">sensor_name</th>
+            <th scope="col">index0_sum</th>
+            <th scope="col">index1_sum</th>
+            <th scope="col">index2_sum</th>
+    
+          </tr>
+        </thead>
+        {% for d in data %}
+        <tbody>
+          <tr>
+            <th>{{d.sensor_name}}</th>
+            <td>{{d.index0_sum}}</td>
+            <td>{{d.index1_sum}}</td>
+            <td>{{d.index2_sum}}</td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
+</body>
+</html>
