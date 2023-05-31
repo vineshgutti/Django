@@ -18,8 +18,7 @@ from django.urls import path
 from validation_app.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', home,name="home"),
-    path('details', details,name='details')
-    
+    path("admin/", admin.site.urls),
+    path("", home, name="home"),
+    path("details", details, name="details"),
 ]

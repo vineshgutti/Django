@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,30 +8,73 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <title>Document</title>
 </head>
-<body>
-    <div class="container-fluid justify-content-center">
-        <h1>#2] From a given timespan, give me all the data for "Sensor X" over time.</h1><a href="{{request.path}}?export=True" class="btn btn-lg btn-success">Export to CSV</a>
-    <table class="table table-bordered border-dark ">
-        <thead>
-          <tr>
-            <th scope="col">sensorName</th>
-            <th scope="col">dataPoints</th>
-            <th scope="col">dateTime</th>
-            <th scope="col">tripId</th>
-    
-          </tr>
-        </thead>
-        {% for d in data %}
-        <tbody>
-          <tr>
-            <th>{{d.sensorName}}</th>
-            <td>{{d.dataPoints}}</td>
-            <td>{{d.dateTime}}</td>
-            <td>{{d.tripId}}</td>
-          </tr>
-        </tbody>
-        {% endfor %}
-      </table>
-    </div>
-</body>
-</html>
+<body> -->
+{% block heading %}
+<div class="container-fluid justify-content-center">
+  <h1>
+    #2] From a given timespan, give me all the data for "Sensor X" over time.
+  </h1>
+  <div style="margin-bottom: 10px">
+    <a
+      href="{{request.path}}?export=True{% if request.GET.sensor %}&from_time={{request.GET.from_time}}&to_time={{request.GET.to_time}}{% endif %}"
+      class="btn btn-sm btn-success"
+      >Export to CSV</a
+    >
+  </div>
+  <div class="form" style="margin-bottom: 10px">
+    <form action="">
+      <!-- {% csrf_token %} -->
+      <input
+        type="text"
+        class="datetimepicker text-center"
+        name="from_time"
+        placeholder="from_time"
+        value=""
+      />
+      <input
+        type="text"
+        class="datetimepicker text-center"
+        name="to_time"
+        placeholder="to_time"
+        value=""
+      />
+      <select id="categoryFilter" name="sensor">
+        <option>--Sensor Name--</option>
+        <option value="AAC">AAC</option>
+        <option value="GPS">GPS</option>
+        <option value="GYRO">GYRO</option>
+        <option value="MAG">MAG</option>
+        <option value="UACC">UACC</option>
+      </select>
+      <input type="submit" value="submit" />
+    </form>
+  </div>
+  {% endblock %} {% block content %}
+  <table
+    id="mytable"
+    class="table table-striped table-bordered"
+    style="width: 100%"
+  >
+    <thead>
+      <tr>
+        <th scope="col">sensorName</th>
+        <th scope="col">dataPoints</th>
+        <th scope="col">dateTime</th>
+        <th scope="col">tripId</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in data %}
+      <tr>
+        <th>{{d.sensorName}}</th>
+        <td>{{d.dataPoints}}</td>
+        <td>{{d.dateTime}}</td>
+        <td>{{d.tripId}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+<!-- </body>
+</html> -->

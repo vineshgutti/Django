@@ -1,0 +1,205 @@
+{% extends 'commertial_app/base.html' %}
+{% block code %}
+<style>
+  .body{
+  color:#f8f9fa ;
+  }
+  .container{
+  padding-right: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  }
+  .alert.parsley {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  padding: 10px 15px 10px 15px;
+  }
+  .check .alert {
+  margin-top: 20px;
+  }
+  .credit-card-box .panel-title {
+  display: inline;
+  font-weight: bold;
+  }
+  .credit-card-box .display-td {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  text-align: center;
+  }
+  .credit-card-box .display-tr {
+  display: table-row;
+  }
+  .card{
+  margin-bottom: 25px;
+  border: none;
+  background-color: #242526;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  color:#f8f9fa ;
+  }
+  .btn-success:hover {
+    color: #fff;
+    background-color: #019e4c;
+    border-color: #019e4c;
+}
+.btn-lg {
+    padding: 12px 38px;
+    font-size: .90rem;
+}
+.nav-tabs .nav-link.active {
+    color: #04b962;
+    background-color: transparent;
+    /* border-color: #04b962 #04b962 #fff; */
+    border-bottom: 4px solid #04b962;
+}
+h3,h6{
+  color: #e4e6eb;
+}
+</style>
+<div class="container">
+<h3> Add Your Billing Info</h3>
+<h6>Confirm your selections & add a Payment method to your account</h6>
+<hr>
+<div class="row">
+<div class="col-12">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="mb-0">Your Subscription <span class="float-right">{{plans.price}}/ Mo</span></h5>
+      <p class="mb-0 small-font">{{plans.plan_name}}</p>
+    </div>
+  </div>
+</div>
+<div class="col-12">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="mb-0">Total Due Today <span class="float-right">$ 0</span></h5>
+    </div>
+  </div>
+</div>
+<div class="col-lg-12">
+<div class="card">
+<div class="card-body">
+  <ul class="nav nav-tabs nav-tabs-success nav-justified top-icon">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#tabe-17"> <span class="hidden-xs">Credit Card</span></a>
+    </li>
+    <!-- <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#tabe-18"><span class="hidden-xs">Paypal</span></a>
+    </li> -->
+  </ul>
+  <form action="{% url 'success' %}" method="post" id="payment-form">
+    {% csrf_token %}
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="tabe-17" class="container tab-pane active" style="text-align: center">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <input type="hidden"  name="plan_id" value="{{plan.plan_id}}" class="form-control amount">
+            </div>
+          </div>
+        </div>
+        <div class="card">
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 class="mb-0">Enter Credit Card Details  </h5>
+      </div>
+    </div>
+    <p>&nbsp;</p>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">
+          <div id="card-element"></div>
+        </div>
+      </div>
+    </div>
+    <p>&nbsp;</p>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <button id="card-button" class="btn btn-success btn-lg btn-block waves-effect waves-light m-1"> PAY</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <span class="payment-errors" id="card-errors" style="color: red;margin-top:10px;"></span>
+      </div>
+    </div>
+  </form>
+  <p></p>
+  <p>After any free trial(s) and /or discount(s), You will be charged $ {{plans.price}} / Mo plus applicable taxes on recurring basis. If you do not cancel its service during its free trial period you will be charged.Your subscription will continue until you cancel. To cancel login to you Real Returns account and follow the instructions.By Selecting SUBMIT you agree to the above terms.</p>
+</div>
+<!-- <script>
+  window.ParsleyConfig = {
+      errorsWrapper: '<div></div>',
+      errorTemplate: '<div class="alert alert-danger parsley" role="alert"></div>',
+      errorClass: 'has-error',
+      successClass: 'has-success'
+  };
+</script> -->
+<!-- <script src="http://parsleyjs.org/dist/parsley.js"></script> -->
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  var style = {
+      base: {
+          color: '#f8f9fa',
+          lineHeight: '30px',
+          fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '22px',
+          '::placeholder': {
+              color: '#f8f9fa'
+          }
+      },
+      invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a'
+      }
+  }
+  const stripe = Stripe("{{STRIPE_PUB_KEY}}", { locale: 'en' }); // Create a Stripe client.
+  const elements = stripe.elements(); // Create an instance of Elements.
+  const card = elements.create('card', { style: style }); // Create an instance of the card Element
+  card.mount('#card-element'); // Add an instance of the card Element into the `card-element` <div>
+  card.on('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      console.log(displayError)
+      if (event.error) {
+          displayError.textContent = event.error.message;
+      } else {
+          displayError.textContent = '';
+      }
+  })
+  // Handle form submission.
+  // var form = document.getElementById('payment-form')
+  var form = document.getElementById('payment-form');
+  form.addEventListener('submit', function(event) {
+      event.preventDefault()
+      stripe.createToken(card).then(function(result) {
+          if (result.error) {
+              // Inform the user if there was an error.
+              var errorElement = document.getElementById('card-errors');
+              errorElement.textContent = result.error.message;
+          } else {
+              // Send the token to your server.
+              stripeTokenHandler(result.token);
+          }
+      });
+  })
+  // Submit the form with the token ID.
+  function stripeTokenHandler(token) {
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('payment-form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput)
+      // Submit the form
+      form.submit();
+  }
+</script> 
+{% endblock %}

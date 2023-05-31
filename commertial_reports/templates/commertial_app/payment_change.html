@@ -1,0 +1,282 @@
+{% extends 'commertial_app/base.html' %}
+{% block code %}
+
+<style>
+  body,h4{
+  color: #e4e6eb;
+  }
+  .row{
+  margin-right: -12.5px;
+  margin-left: -12.5px;
+  display: flex;
+  flex-wrap: wrap;   
+  }
+  .col-md-3 {
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+  }
+  .col-md-9 {
+  -ms-flex: 0 0 75%;
+  flex: 0 0 75%;
+  max-width: 75%;
+  }
+  .card {
+  margin-bottom: 25px;
+  border: none;
+  background-color: #242526;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  .tabs-vertical-warning.tabs-vertical .nav-tabs .nav-link.active {
+  background-color: transparent;
+  border-color: #ff8800 #ff8800 #fff;
+  border-bottom: 1px solid #ff8800;
+  border-right: 1px solid #ff8800;
+  border-left: 3px solid #ff8800;
+  color: #ff8800;
+  }
+  .bg-warning {
+    background-color: #ff8800!important;
+}
+  .modal-content {
+  font-size: 18px;
+  background: #242526;
+  border: 0px solid rgba(0, 0, 0, .1);
+  border-radius: 0.25rem;
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  pointer-events: auto;
+  }
+  .nav-tabs-primary .nav-link.active{
+    background-color: transparent;
+    border-color: #7934f3 #7934f3 #fff;
+    border-bottom: 4px solid #7934f3;
+    color: #7934f3;
+  }
+</style>
+
+<div class="container-fluid">
+  <!-- {% if messages %}
+     <ul class="messages">
+     {% for message in messages %}
+     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+     {% endfor %}
+     </ul>
+     {% endif %} -->
+  <h4 class="text-uppercase">Account</h4>
+  Member Since {{ users.created_at|date:"M n, Y"}}
+  <hr>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="tabs-vertical tabs-vertical-warning">
+                <ul class="nav nav-tabs flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link py-4 active" data-toggle="tab" href="#tabe-21"><i class="icon-home"></i> <span class="hidden-xs">Membership & Billing </span></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            </div class="col-md-9">
+            <div class="tab-content">
+              <div id="tabe-21" class="container tab-pane active">
+                {% if subscription != 0 %} 
+                <p>
+                <div class="row">
+                  <div class="col-lg-6"> {{ subscription.brand }} : {{ subscription.payment_info }}  
+                    </br>
+                    {% if subscription.stripe_status == 'cancel' %}
+                    Your Current Plan is cancelled  & you won't be charged in next billing date
+                    {% else %}
+                    Your Next billing date is {{subscription.expiry|date:"M n, Y"}}
+                    {% endif %}
+                  </div>
+                  <div class="col-lg-6" style="text-align:right;"><a href="#" data-toggle="modal" data-target="#paymentmenthods">Manage Payment Info</a> </div>
+                </div>
+                </div>
+                </p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Method Modal -->
+
+<div class="modal fade" id="paymentmenthods">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+     <div class="modal-content border-warning">
+       <div class="modal-header bg-warning">
+         <h5 class="modal-title">Manage Payment Info</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+
+<div class="row">
+<div class="col-lg-12">
+<div class="card">
+<div class="card-body"> 
+ <ul class="nav nav-tabs nav-tabs-primary">
+   <li class="nav-item">
+     <a class="nav-link active" data-toggle="tab" href="#tabe-1"><i class="icon-home"></i> <span class="hidden-xs">Payment Methods</span></a>
+   </li>
+   <li class="nav-item">
+     <a class="nav-link" data-toggle="tab" href="#tabe-2"><i class="icon-user"></i> <span class="">Change Payment Method</span></a>
+   </li>   
+ </ul>
+
+ <!-- Tab panes -->
+ <div class="tab-content">
+   <div id="tabe-1" class="container tab-pane active">
+    <p>{{subscription.brand }} : {{subscription.payment_info }}   <a href="">Preferred</a></p>
+   </div>
+   <div id="tabe-2" class="container tab-pane fade">
+   
+           <div class="row">
+              <div class="col-md-3">
+                <div class="tabs-vertical tabs-vertical-warning">
+                  <ul class="nav nav-tabs flex-column">
+                    <li class="nav-item">
+                      <a class="nav-link py-4 active" data-toggle="tab" href="#tabe-22"><img src="/images/cc.png"></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link py-4" data-toggle="tab" href="#tabe-23"><img src="/images/paypal.png"></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-9">
+ <!-- Tab panes -->
+              <div class="tab-content">
+
+              <div id="tabe-22" class="container tab-pane active">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+     
+                    </div>
+                  </div>
+                </div>
+     <div class="card">
+<h5 class="modal-title">Enter card Details {{subscription.id }}</h5>
+</div>
+     <form action="{% url 'AddStripePaymentMethod' %}" method="post" id="payment-form">
+     {% csrf_token %}
+    {% if messages %}
+    {% for msg in messages %}
+     <div class="alert alert-success alert-block">
+       <button type="button" class="close" data-dismiss="alert">×</button> 
+            <strong>{{ msg }}</strong>
+     </div>
+     {% endfor %}
+    {% endif %}
+         <input type="hidden"  name="subscription_id" value="{{ subscription.id }}" class="form-control ">
+    <div class="row">
+         <div class="col-lg-12">
+             <div class="form-group">
+                 <div id="card-element"></div>
+             </div>
+         </div>
+           
+     </div>
+ 
+      <p>&nbsp;</p>
+      <div class="row">
+     <div class="col-lg-6">
+      <div class="form-group">
+     <button id="card-button" class="btn btn-success btn-lg btn-block waves-effect waves-light m-1"> Subscribe Using New card</button>
+   </div>
+     </div>
+       </div>
+       <div class="row">
+         <div class="col-md-12">
+             <span class="payment-errors" id="card-errors" style="color: red;margin-top:10px;"></span>
+         </div>
+       </div>
+      </form>
+     <p></p>	
+     
+</div>
+
+<script>
+  window.ParsleyConfig = {
+      errorsWrapper: '<div></div>',
+      errorTemplate: '<div class="alert alert-danger parsley" role="alert"></div>',
+      errorClass: 'has-error',
+      successClass: 'has-success'
+  };
+  </script>
+<script src="http://parsleyjs.org/dist/parsley.js"></script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  var style = {
+      base: {
+          color: '#f8f9fa',
+          lineHeight: '30px',
+          fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '22px',
+          '::placeholder': {
+              color: '#f8f9fa'
+          }
+      },
+      invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a'
+      }
+  }
+  const stripe = Stripe("{{STRIPE_PUB_KEY}}", { locale: 'en' }); // Create a Stripe client.
+  const elements = stripe.elements(); // Create an instance of Elements.
+  const card = elements.create('card', { style: style }); // Create an instance of the card Element
+  card.mount('#card-element'); // Add an instance of the card Element into the `card-element` <div>
+  card.on('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      console.log(displayError)
+      if (event.error) {
+          displayError.textContent = event.error.message;
+      } else {
+          displayError.textContent = '';
+      }
+  })
+  // Handle form submission.
+  // var form = document.getElementById('payment-form')
+  var form = document.getElementById('payment-form');
+  form.addEventListener('submit', function(event) {
+      event.preventDefault()
+      stripe.createToken(card).then(function(result) {
+          if (result.error) {
+              // Inform the user if there was an error.
+              var errorElement = document.getElementById('card-errors');
+              errorElement.textContent = result.error.message;
+          } else {
+              // Send the token to your server.
+              stripeTokenHandler(result.token);
+          }
+      });
+  })
+  // Submit the form with the token ID.
+  function stripeTokenHandler(token) {
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('payment-form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput)
+      // Submit the form
+      form.submit();
+  }
+</script>
+{% endblock %}

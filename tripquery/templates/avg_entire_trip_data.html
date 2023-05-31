@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,30 +8,67 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <title>Document</title>
 </head>
-<body>
-    <div class="container-fluid justify-content-center">
-        <h1>#4] From a given trip, give the average of "Sensor X" throughout the entire trip. </h1><a href="{{request.path}}?export=True" class="btn btn-lg btn-success">Export to CSV</a>
-    <table class="table table-bordered border-dark ">
-        <thead>
-          <tr>
-            <th scope="col">sensor_name</th>
-            <th scope="col">index0_avg</th>
-            <th scope="col">index1_avg</th>
-            <th scope="col">index2_avg</th>
-    
-          </tr>
-        </thead>
-        {% for d in data %}
-        <tbody>
-          <tr>
-            <td>{{d.sensor_name}}</td>
-            <td>{{d.index0_avg}}</td>
-            <td>{{d.index1_avg}}</td>
-            <td>{{d.index2_avg}}</td>
-          </tr>
-        </tbody>
-        {% endfor %}
-      </table>
-    </div>
-</body>
-</html>
+<body> -->
+{% block heading %}
+<div class="container-fluid justify-content-center">
+  <h1>
+    #4] From a given trip, give the average of "Sensor X" throughout the entire
+    trip.
+  </h1>
+  <div style="margin-bottom: 10px">
+    <a href="{{request.path}}?export=True" class="btn btn-lg btn-success"
+      >Export to CSV</a
+    >
+  </div>
+  <div class="form" style="margin-bottom: 10px">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <!-- <input type="text"class="datetimepicker text-center" placeholder="from_time" value=""/>
+            <input type="text"class="datetimepicker text-center" placeholder="to_time" value=""/> -->
+      <input
+        type="text"
+        class="text-center"
+        name="trip_id"
+        placeholder="trip_id"
+        value=""
+      />
+      <select id="categoryFilter" name="sensor">
+        <option>--Sensor Name--</option>
+        <option value="AAC">AAC</option>
+        <option value="GPS">GPS</option>
+        <option value="GYRO">GYRO</option>
+        <option value="MAG">MAG</option>
+        <option value="UACC">UACC</option>
+      </select>
+      <input type="submit" value="submit" />
+    </form>
+  </div>
+  {% endblock %} {% block content %}
+  <table
+    id="mytable"
+    class="table table-striped table-bordered"
+    style="width: 100%"
+  >
+    <thead>
+      <tr>
+        <th scope="col">sensor_name</th>
+        <th scope="col">index0_avg</th>
+        <th scope="col">index1_avg</th>
+        <th scope="col">index2_avg</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in data %}
+      <tr>
+        <td>{{d.sensor_name}}</td>
+        <td>{{d.index0_avg}}</td>
+        <td>{{d.index1_avg}}</td>
+        <td>{{d.index2_avg}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+<!-- </body>
+</html> -->

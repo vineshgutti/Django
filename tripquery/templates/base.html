@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- css jQuery datetime picker CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+    />
+    <!-- css bootstrap datatable CDN -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <!-- css datatable CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+    />
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- js datatable CDN -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <!-- js bootstrap datatable CDN -->
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap.min.js"></script>
+    <!-- js jQuery datetime picker CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    {% block heading %} {% endblock %}
+    <!-- <form action="" method="POST" >
+        {% csrf_token %}
+          <input type="text"class="datetimepicker text-center" placeholder="from_time" value=""/>
+          <input type="text"class="datetimepicker text-center" placeholder="to_time" value=""/>
+          <input type="text"class=" text-center" name="trip_id" placeholder="trip_id" value=""/>
+          <select id="categoryFilter" name="sensor">
+            <option>sensor Name</option>
+            <option value="AAC">AAC</option>
+            <option value="GPS">GPS</option>
+            <option value="GYRO">GYRO</option>
+            <option value="MAG">MAG</option>
+            <option value="UACC">UACC</option>
+          </select>
+          <input type="submit" value="submit">
+      </form> -->
+    {% block content %} {% endblock %}
+    <script>
+      $(document).ready(function () {
+        $.ajax({
+          url: 'http://localhost:8080/resourceserver/protected-no-scope',
+          type: 'GET',
+          contentType: 'application/json'
+          headers: {
+            'Authorization': 'Bearer <token>'
+          },
+          success: function (result) {
+            // CallBack(result);
+            },
+          error: function (error) {
+          }
+        });
+        $("#mytable").DataTable();
+      });
+      $(".datetimepicker").each(function () {
+        $(this).datetimepicker();
+      });
+    </script>
+  </body>
+</html>

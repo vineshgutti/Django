@@ -18,11 +18,12 @@ from django.urls import path
 from queryapp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('trip',views.trip, name="trip"),
-    path('timespan',views.timespan, name="timespan"),
-    path('sum_entire_trip',views.sum_entire_trip,name='sum_entire_trip'),
-    path('avg_entire_trip',views.avg_entire_trip,name='avg_entire_trip'),
-    path('boat_avg',views.boat_avg,name='boat_avg'),
-    path('trip_sensors',views.trip_sensors,name='trip_sensors')
+    path("admin/", admin.site.urls),
+    path("", views.home, name="homes"),
+    path("trip", views.trip, name="trip"),
+    path("timespan", views.timespan, name="timespan"),
+    path("sum_entire_trip", views.sum_entire_trip, name="sum_entire_trip"),
+    path("avg_entire_trip", views.avg_entire_trip, name="avg_entire_trip"),
+    path("boat_avg", views.boat_avg, name="boat_avg"),
+    path("trip_sensors", views.trip_sensors, name="trip_sensors"),
 ]

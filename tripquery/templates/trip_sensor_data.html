@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,25 +8,60 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <title>Document</title>
 </head>
-<body>
-    <div class="container-fluid justify-content-center">
-        <h1>#6] For a given trip, tell me which sensors were available. </h1><a href="{{request.path}}?export=True" class="btn btn-lg btn-success">Export to CSV</a>
-    <table class="table table-bordered border-dark ">
-        <thead>
-          <tr>
-            <th scope="col">trip_id</th>
-            <th scope="col">sensors</th>
-          </tr>
-        </thead>
-        {% for d in data %}
-        <tbody>
-          <tr>
-            <td>{{d.trip_id}}</td>
-            <td>{{d.sensors}}</td>
-          </tr>
-        </tbody>
-        {% endfor %}
-      </table>
-    </div>
-</body>
-</html>
+<body> -->
+{% block heading %}
+<div class="container-fluid justify-content-center">
+  <h1>#6] For a given trip, tell me which sensors were available.</h1>
+  <div style="margin-bottom: 10px">
+    <a href="{{request.path}}?export=True" class="btn btn-lg btn-success"
+      >Export to CSV</a
+    >
+  </div>
+  <div class="form" style="margin-bottom: 10px">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <!-- <input type="text"class="datetimepicker text-center" placeholder="from_time" value=""/>
+              <input type="text"class="datetimepicker text-center" placeholder="to_time" value=""/> -->
+      <input
+        type="text"
+        class="text-center"
+        name="trip_id"
+        placeholder="trip_id"
+        value=""
+      />
+      <!-- <select id="categoryFilter" name="sensor">
+                <option>sensor Name</option>
+                <option value="AAC">AAC</option>
+                <option value="GPS">GPS</option>
+                <option value="GYRO">GYRO</option>
+                <option value="MAG">MAG</option>
+                <option value="UACC">UACC</option>
+              </select> -->
+      <input type="submit" value="submit" />
+    </form>
+  </div>
+  {% endblock %} {% block content %}
+  <table
+    id="mytable"
+    class="table table-striped table-bordered"
+    style="width: 100%"
+  >
+    <thead>
+      <tr>
+        <th scope="col">trip_id</th>
+        <th scope="col">sensors</th>
+      </tr>
+    </thead>
+    {% for d in data %}
+    <tbody>
+      <tr>
+        <td>{{d.trip_id}}</td>
+        <td>{{d.sensors}}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
+<!-- </body>
+</html> -->
