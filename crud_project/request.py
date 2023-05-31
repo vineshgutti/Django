@@ -21,9 +21,9 @@ import json
 # print(type(r.request.body))
 
 # PATCH request
-id=input()
+# id=input()
 d={'name':'electric bike'}
-e = requests.patch('http://127.0.0.1:8000/patch/'+id,data=d)
+e = requests.patch('http://127.0.0.1:8000/patch/'+"18",data=json.dumps(d))
 print(e)
 print(e.request.body)
 print(type(e.request.body))
