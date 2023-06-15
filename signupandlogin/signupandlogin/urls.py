@@ -20,4 +20,18 @@ from signup_login.views import *
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", register, name="register"),
+    path("emailactivate/<uid>/<verify_string>", email_activate, name="emailactivate"),
+    path("login", login_view, name="login"),
+    path("logout", logout_view, name="logout"),
+    path("profile/<int:id>", profile, name="profile"),
+    path("emailchange", changeemail, name="emailchange"),
+    path(
+        "changeemail/<uid>/<token>/<token1>",
+        change_email_activate,
+        name="changeemaileactivate",
+    ),
+    path(
+        "emailsendresetpassword", emailsend_passwordreset, name="emailsendresetpassword"
+    ),
+    path("resetpassword/<uid>/<token>", reset_password, name="resetpassword"),
 ]

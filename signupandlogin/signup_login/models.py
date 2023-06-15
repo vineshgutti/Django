@@ -28,7 +28,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, email=None, password=None, **extra_fields):
+    def create_user(self, username=None, email=None, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
         return self._create_user(username, email, password, **extra_fields)
@@ -77,7 +77,7 @@ class Users(AbstractUser):
     last_name = models.CharField(max_length=255, null=True, blank=True)
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(max_length=255, unique=True)
-    password = models.CharField(max_length=255, validators=[MinLengthValidator(8)])
+    password = models.CharField(max_length=255)
     GENDER_CHOICES = (("M", "Male"), ("F", "Female"), ("O", "Other"))
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     verify_string = models.CharField(max_length=255, null=True, blank=True)
@@ -88,10 +88,9 @@ class Users(AbstractUser):
     updated_at = models.DateField(auto_now=True)
 
     EMAIL_FIELD = "email"
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = [
-        "username",
-    ]
+    USERNAME_FIELD = "email"  # In the same `models.py` file, add the `USERNAME_FIELD` attribute to specify that the email field should be used as the username field for authentication:
+
+    REQUIRED_FIELDS = []
 
     objects = UserManager()
 

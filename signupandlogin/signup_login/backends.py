@@ -1,7 +1,10 @@
-from typing import Optional
+# from typing import Optional
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth import get_user_model
-from django.contrib.auth.base_user import AbstractBaseUser
+
+# from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.hashers import check_password
+
 from django.db.models import Q
 
 User = get_user_model()

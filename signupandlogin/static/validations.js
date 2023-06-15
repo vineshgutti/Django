@@ -1,12 +1,11 @@
 function validate(){
-    var fname=document.forms['Registerform']['first name'].value;
-    var lname=document.forms['Registerform']['last name'].value;
-    var uname=document.forms['Registerform']['username'].value;
-    var dob=document.forms['Registerform']['date_of_birth'].value;
-    var email=document.forms['Registerform']['email'].value;
-    var phone=document.forms['Registerform']['phone'].value;    
-    var pwd=document.forms['Registerform']['password'].value;
-    var cpwd=document.forms['Registerform']['confirm password'].value;
+    var fname=document.forms['#form']['fname'].value;
+    var lname=document.forms['#form']['lname'].value;
+    var uname=document.forms['#form']['uname'].value;
+    var email=document.forms['#form']['email'].value;
+    var phone=document.forms['#form']['phone'].value;    
+    var pwd=document.forms['#form']['password'].value;
+    var cpwd=document.forms['#form']['confirm password'].value;
     var alphaExp=/^[a-zA-Z]+$/;
     var numExp=/^[0-9]+$/;
     var emailExp=/^[a-zA-Z0-9.]+@[a-zA-Z]+.[a-zA-Z]+$/;

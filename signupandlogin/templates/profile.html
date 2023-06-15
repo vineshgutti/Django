@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'css/index.css'%}" />
+    <!-- <script src="{% static 'validations.js' %}"></script> -->
+    <script></script>
+    <title>Profile</title>
+  </head>
+  <body>
+    <div class="container mt-lg-5 w-50">
+      {% for message in messages %}
+      <div class="container-fluid p-0">
+        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+          {{ message }}
+        </div>
+      </div>
+      {% endfor %}
+      <div class="row jumbotron box8">
+        <div class="col-sm-12 mx-t3 mb-4">
+          <h2 class="text-center text-info">Profile</h2>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <label for="name-l">Username:</label
+            ><strong>{{user.username}}</strong>
+          </div>
+          <div class="col-sm-6 form-group">
+            <label for="name-l">Email:</label><strong>{{user.email}}</strong>
+          </div>
+          <div class="col-sm-6 form-group change_email">
+            <a href="{%url 'emailchange' %}">Change Email</a>
+          </div>
+          <div class="col-sm-12 form-group">
+            <label for="name-l">Phone:</label><strong>{{user.phone}}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
